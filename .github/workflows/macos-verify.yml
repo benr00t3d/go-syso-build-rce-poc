@@ -10,7 +10,11 @@ permissions:
 
 jobs:
   verify:
-    runs-on: xcode-27
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, xcode-27]
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
@@ -18,16 +22,6 @@ jobs:
         with:
           go-version: 1.27.3
           check-latest: true
-      - name: Build Xcode 27 demo library
-        run: |
-          sdk=$(xcrun --show-sdk-path)
-          xcrun clang -isysroot "$sdk" -dynamiclib -fPIC -arch arm64 \
-            -Wl,-install_name,@rpath/libLTO.dylib \
-            -Wl,-compatibility_version,1.0.0 \
-            -Wl,-current_version,5100.3.34 \
-            plugin/calculator_demo.c plugin/lto_api_stubs.c \
-            -o arm64-cfg/libLTO.dylib
-          codesign --force --sign - arm64-cfg/libLTO.dylib
       - name: Environment
         run: |
           receipts="$RUNNER_TEMP/macos-verifier-receipts"
@@ -71,5 +65,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: macos-verifier-receipts
+          name: macos-verifier-receipts-${{ matrix.runner }}
           path: ${{ runner.temp }}/macos-verifier-receipts
