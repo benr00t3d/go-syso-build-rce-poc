@@ -81,4 +81,6 @@ same validation bypass without controlling the consumer's build command.
 - [`poc/generator/README.md`](poc/generator/README.md): deterministic carrier
   generation
 
-Keep the repository private until the Go Security team approves disclosure.
+This repository is public so reviewers can reproduce the result from an
+unauthenticated clone. Send vulnerability discussion and remediation details
+to the Go Security team rather than opening a public Go issue.
