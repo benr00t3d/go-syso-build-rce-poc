@@ -1,0 +1,6 @@
+GET /example.test/evil/@v/v1.0.2.zip
+GET /example.test/evil/@v/v1.0.2.mod
+GET /example.test/evil/@v/v1.0.2.info
+GET /example.test/evil/@v/v1.0.2.zip
+GET /example.test/evil/@v/v1.0.2.mod
+GET /example.test/evil/@v/v1.0.2.info

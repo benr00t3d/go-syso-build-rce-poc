@@ -1,0 +1,91 @@
+diff --git a/src/cmd/go/internal/work/exec.go b/src/cmd/go/internal/work/exec.go
+index edb25f94b..966383a77 100644
+--- a/src/cmd/go/internal/work/exec.go
++++ b/src/cmd/go/internal/work/exec.go
+@@ -1035,7 +1035,11 @@ func (b *Builder) buildObject(ctx context.Context, a *Action) error {
+ 
+ 	// Add system object files.
+ 	for _, syso := range p.SysoFiles {
+-		objects = append(objects, filepath.Join(p.Dir, syso))
++		file := filepath.Join(p.Dir, syso)
++		if err := checkSyso(file); err != nil {
++			return err
++		}
++		objects = append(objects, file)
+ 	}
+ 
+ 	// Pack into archive in objdir directory.
+@@ -1062,6 +1066,29 @@ func (b *Builder) buildObject(ctx context.Context, a *Action) error {
+ 	return nil
+ }
+ 
++// checkSyso rejects Go compiler objects presented as system object files.
++// Go objects can carry //go:cgo_ldflag directives, which are only safe after
++// cmd/go has validated the generated cgo source that produced them. A .syso
++// file is supplied by the package and has not passed that validation.
++func checkSyso(file string) error {
++	f, err := os.Open(file)
++	if err != nil {
++		return err
++	}
++	defer f.Close()
++
++	const goObject = "go object "
++	var hdr [len(goObject)]byte
++	n, err := io.ReadFull(f, hdr[:])
++	if err != nil && err != io.EOF && err != io.ErrUnexpectedEOF {
++		return err
++	}
++	if string(hdr[:n]) == goObject {
++		return fmt.Errorf("invalid system object file %s: contains a Go object", file)
++	}
++	return nil
++}
++
+ func (b *Builder) reportCompile(a *Action, out []byte, err error) error {
+ 	p := a.Package
+ 	if len(out) > 0 && (p.UsesCgo() || p.UsesSwig()) && !cfg.BuildX {
+diff --git a/src/cmd/go/internal/work/exec_test.go b/src/cmd/go/internal/work/exec_test.go
+index e7b550884..f44c05543 100644
+--- a/src/cmd/go/internal/work/exec_test.go
++++ b/src/cmd/go/internal/work/exec_test.go
+@@ -10,11 +10,39 @@ import (
+ 	"cmd/internal/sys"
+ 	"fmt"
+ 	"math/rand"
++	"os"
++	"path/filepath"
+ 	"testing"
+ 	"time"
+ 	"unicode/utf8"
+ )
+ 
++func TestCheckSyso(t *testing.T) {
++	t.Parallel()
++
++	dir := t.TempDir()
++	for _, test := range []struct {
++		name    string
++		data    string
++		wantErr bool
++	}{
++		{name: "native object", data: "\x7fELF"},
++		{name: "short file", data: "go obj"},
++		{name: "Go object", data: "go object linux amd64", wantErr: true},
++	} {
++		t.Run(test.name, func(t *testing.T) {
++			file := filepath.Join(dir, test.name+".syso")
++			if err := os.WriteFile(file, []byte(test.data), 0o666); err != nil {
++				t.Fatal(err)
++			}
++			err := checkSyso(file)
++			if (err != nil) != test.wantErr {
++				t.Fatalf("checkSyso(%q) = %v, want error %v", file, err, test.wantErr)
++			}
++		})
++	}
++}
++
+ func TestEncodeArgs(t *testing.T) {
+ 	t.Parallel()
+ 	tests := []struct {

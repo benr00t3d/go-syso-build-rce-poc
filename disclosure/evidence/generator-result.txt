@@ -1,0 +1,6 @@
+e8df2f8410cbf4667c525172d439415b0285f89d1cc8b2ac5d81c7dd4b6eb067  /tmp/build/payload.a
+14daca8f6a908706a22454141963136e279ab817c099f796ec4a05f8211e6a38  _go_.o
+d8440e34b71bd3d5058dc5ea7c76f1509efc1c18049e7c54a1d0fcc7fb2377f5  directive.syso
+d8440e34b71bd3d5058dc5ea7c76f1509efc1c18049e7c54a1d0fcc7fb2377f5  /tmp/reference.syso
+changed_bytes=8
+matches_disclosure_fixture=yes

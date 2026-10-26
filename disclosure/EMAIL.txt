@@ -1,0 +1,50 @@
+Subject: Vulnerability: cmd/go: downloaded .syso bypasses cgo linker flag validation for build-host code execution
+
+Hello Go Security team,
+
+I found a cmd/go validation bypass that lets a downloaded module execute a
+command on the build host during an ordinary `go build`.
+
+The module supplies a precompiled Go object as a `.syso`. cmd/go packs it
+without inspecting its serialized cgo directives. cmd/link accepts a zero
+fingerprint, reads the embedded `cgo_ldflag` values, and passes them to GCC.
+A second unrecognized `.syso` forces external linking, including when
+`CGO_ENABLED=0` and the dependency has no `import "C"`.
+
+Verified affected:
+
+- Go 1.26.10
+- Go 1.27.3
+- current master at deab4989e6586057f154e164ab92940b79b8ed19
+
+The minimal local-proxy reproduction creates only a temporary `/tmp` marker.
+I repeated it with Go's checksum-matched official Linux amd64 archive, an
+empty module cache, and a loopback HTTP module proxy. The HTTP log records the
+`.info`, `.mod`, and `.zip` requests. The target link fails and no target
+executable is run, but the host marker is created. A source-level control
+using the same linker flag is correctly rejected by the same official
+toolchain and creates no marker.
+
+I also repeated the build with the crafted module only as an indirect
+dependency. The root program imported a local wrapper and did not reference
+the crafted module. A fresh module cache fetched the indirect dependency and
+the same host-side execution occurred.
+
+The carrier is deterministic rather than an opaque binary fixture. A small
+generator compiles the directive source normally and zeros only the
+eight-byte Go object fingerprint. It recreates the disclosed `.syso`
+byte-for-byte.
+
+I included a concise report, the minimal reproduction, retained result files,
+and a candidate fix. The fix rejects Go compiler objects masquerading as
+`.syso`; it blocks the reproduction while Go's existing native `.syso` test
+continues to pass.
+
+This appears to match the Go security decision that a malicious module
+causing `go build` to execute arbitrary code is a PRIVATE-track
+vulnerability.
+
+Preferred attribution: Robert Prast
+
+Thank you,
+Robert

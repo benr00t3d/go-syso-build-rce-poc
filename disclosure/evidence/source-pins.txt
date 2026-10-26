@@ -1,0 +1,13 @@
+date=2026-10-26T08:20:00Z
+stable_126=go version go1.26.10 linux/amd64
+stable_127=go version go1.27.3 linux/amd64
+master_revision=deab4989e6586057f154e164ab92940b79b8ed19
+master_version=go version go1.28-devel_deab4989e Mon Oct 26 02:40:52 2026 -0700 linux/amd64
+playground_revision=c2dc5323013d0e31a9bc3d4e849bf49353cb3fa5
+pkgsite_revision=8b2f2a882f6f534451aca170185b5aeb6e28f930
+484a939eba2732cd9b7bbedbe0336a56cd740b93655d16b3afc5d9274bc74949  /workspace/worktrees/goobj-master/src/cmd/go/internal/work/exec.go
+9a21bd3f94b21804ce7a924cf9e2c0d1413aa3480ed2fd649dd414c40f3924b1  /workspace/worktrees/goobj-master/src/cmd/go/internal/work/security.go
+1035a2c6ca034d8a47ae6ee3a4be530e0b32170120d527d75fc46df29be68c84  /workspace/worktrees/goobj-master/src/cmd/link/internal/ld/go.go
+fc7ccc10f41e27a210b4cfc2dfb7cd8dc12b64fcff3a4b9737d5331e7efc8526  /workspace/worktrees/goobj-master/src/cmd/link/internal/ld/lib.go
+42f27ac065d432af80cb810d9ef0844d9dac7a3752d4da52f7e92feda653ccbd  /workspace/worktrees/goobj-master/src/cmd/link/internal/ld/config.go
+11153eae28baf72f6e6c10910233d914f135409d0c45fb9ce5e447508e9d7508  /workspace/research/playground-20261025/Dockerfile
