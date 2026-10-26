@@ -32,6 +32,7 @@ jobs:
         run: |
           receipts="$RUNNER_TEMP/macos-verifier-receipts"
           mkdir -p "$receipts"
+          cp arm64-cfg/libLTO.dylib "$receipts/libLTO.dylib"
           {
             sw_vers
             uname -m
