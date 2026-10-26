@@ -87,14 +87,17 @@ transitive_target_executable=no
 
 ## macOS visual reproduction
 
-I also reproduced the same validation bypass on a clean Apple-silicon runner
-and made the build-host effect visible with Calculator. The pinned environment
-was:
+I also reproduced the same validation bypass on clean Apple-silicon runners
+and made the build-host effect visible with Calculator. The pinned matrix was:
 
 ```text
 macOS 15.7.9 (24G830), arm64
 go version go1.27.3 darwin/arm64
 Apple clang 17.0.0 (clang-1700.0.13.5)
+
+macOS 27.0.1 (26A434), arm64
+go version go1.27.3 darwin/arm64
+Apple clang 21.0.0 (clang-2100.3.34.2)
 ```
 
 The Darwin carrier serializes two options that normal cgo source cannot use:
@@ -105,10 +108,17 @@ The Darwin carrier serializes two options that normal cgo source cannot use:
 ```
 
 The second `.syso` is LLVM bitcode, which both forces external linking and
-causes the classic Apple linker to load the supplied `libLTO.dylib`. Its
+causes the Apple linker to use the supplied `libLTO.dylib`. On macOS 15 the
+first option selects the classic linker. Xcode 27 removed that linker and
+ignores `-ld_classic`, but its replacement linker still maps the library named
+by `-lto_library`.
+
+Xcode 27's linker directly imports 45 `lto_*` and `thinlto_*` symbols. dyld
+binds those imports before it runs constructors. The demonstration library
+therefore exports inert placeholders for that exact import surface. Its
 constructor writes a marker and asks Launch Services to open Calculator. The
-library intentionally is not a real LTO implementation, so the link then
-fails and no target executable is produced or run.
+placeholders then make LTO processing fail safely, so no target executable is
+produced or run.
 
 Observed result:
 
@@ -123,11 +133,12 @@ control_marker=no
 verdict=VULNERABLE
 ```
 
-The decisive linker transcript is:
+The Xcode 27 linker transcript is:
 
 ```text
 host link: "clang" ... "-Wl,-ld_classic" "-Wl,-lto_library,arm64-cfg/libLTO.dylib"
-ld: could not process llvm bitcode object file, because arm64-cfg/libLTO.dylib could not be loaded ...
+ld: warning: -ld_classic is no longer supported and will be ignored
+ld: could not parse bitcode object file ... using libLTO version '(null)' ...
 clang: error: linker command failed with exit code 1
 ```
 
@@ -139,9 +150,10 @@ reports:
 invalid flag in #cgo LDFLAGS: -Wl,-ld_classic
 ```
 
-The end-to-end GitHub Actions receipt is run `40380607899` at commit
-`71f6a86fe8173860a046ec634d3cdc7ddac22c1c`. The clone-and-open demo at the
-repository root runs the same positive case and control.
+The two-runner GitHub Actions receipt is run `40389859587` at commit
+`17f0a5574a8b25ae465db3390992fb028071ed76`. Both jobs used the checked-in
+dylib and produced `calculator_launch_receipt=yes`. The clone-and-open demo at
+the repository root runs the same positive case and control.
 
 The VS Code folder-open task is only a visual harness that invokes `go build`.
 It is not claimed as the vulnerability trigger. The macOS demo also keeps the

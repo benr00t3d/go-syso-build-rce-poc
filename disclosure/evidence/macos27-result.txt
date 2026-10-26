@@ -1,0 +1,17 @@
+Preparing pinned Go toolchain...
+Running crafted .syso build...
+Running identical source-level control...
+
+macos=27.0.1
+machine=arm64
+go=go version go1.27.3 darwin/arm64
+clang=Apple clang version 21.0.0 (clang-2100.3.34.2)
+positive_status=1
+positive_marker=yes
+positive_target=no
+calculator_launch_receipt=yes
+control_status=1
+control_rejected=yes
+control_marker=no
+verdict=VULNERABLE
+retained=/var/folders/5n/5t77mfb93jd7q8v9s6f0dn0m0000gn/T/go-syso-macos-poc.ePSils

@@ -117,4 +117,7 @@ if [ "$positive_marker_value" = yes ] && \
 fi
 
 printf 'verdict=NOT_REPRODUCED\n' >&2
+printf '\nRelevant linker diagnostics:\n' >&2
+grep -E 'host link:|ld:|clang:|classic|lto|error:' \
+	"$run/positive.stderr" | tail -40 >&2 || true
 exit 1

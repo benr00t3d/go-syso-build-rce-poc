@@ -1,1 +1,1 @@
-event=launch-success id=771ba8d9b3f3e9fc host=1611 path_rc=0 lock_path_rc=0 lock_rc=0 attr_rc=0 spawn_rc=0 child=1612 wait_rc=0 exit=0 signal=-1 path=/Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc/arm64-cfg/libLTO.dylib
+event=launch-success id=771ba8d9b3f3e9fc host=1420 path_rc=0 lock_path_rc=0 lock_rc=0 attr_rc=0 spawn_rc=0 child=1421 wait_rc=0 exit=0 signal=-1 path=/Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc/arm64-cfg/libLTO.dylib

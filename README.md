@@ -6,8 +6,8 @@ records past the source-level linker flag checks. During an ordinary
 `go build`, `cmd/link` forwards those records to the host compiler driver.
 
 The Apple-silicon demo makes the build-host effect visible by opening
-Calculator. It was independently verified on a clean macOS 15 ARM64 runner
-with Go 1.27.3 and Apple Clang 17.
+Calculator. It is continuously verified with Go 1.27.3 on both macOS 15 with
+Apple Clang 17 and macOS 27 with Apple Clang 21.
 
 ## macOS Calculator demo
 
@@ -59,11 +59,18 @@ The crafted `.syso` serializes these host-linker options:
 -Wl,-lto_library,arm64-cfg/libLTO.dylib
 ```
 
-Apple's classic linker loads the supplied LTO library and reaches its
-constructor before rejecting it as an invalid LTO implementation. The target
-program is never produced or run. When the identical options appear in normal
-`#cgo LDFLAGS` source, Go rejects them before the linker starts and Calculator
-does not open.
+On macOS 15, `-ld_classic` selects the classic linker, which loads the supplied
+LTO library. Xcode 27 removed that linker and ignores the selector, but its new
+linker still loads the library named by `-lto_library`. The demo library exports
+inert placeholders for the LTO symbols imported by the Xcode 27 linker so dyld
+can finish binding and run its constructor. The link then fails safely because
+the library is not an LTO implementation; the target program is never produced
+or run.
+
+When the identical options appear in normal `#cgo LDFLAGS` source, Go rejects
+them before the linker starts and Calculator does not open. The checked-in
+dylib can be reproduced from source with `plugin/build-macos.sh`; that build is
+not a prerequisite for running the demo.
 
 The visual demo keeps its dylib inside this checkout at a fixed relative path.
 It demonstrates the macOS build-host primitive. The `poc/` reproduction is the

@@ -10,3 +10,4 @@ InstalledDir: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDe
 arm64-cfg/libLTO.dylib: Mach-O 64-bit dynamically linked shared library arm64
 arm64-cfg/libLTO.dylib: valid on disk
 arm64-cfg/libLTO.dylib: satisfies its Designated Requirement
+a9942f346e5075c00a3c22eb79e7f595c76bb38776ff74cbf523d2cca95026c8  arm64-cfg/libLTO.dylib

@@ -14,4 +14,4 @@ control_status=1
 control_rejected=yes
 control_marker=no
 verdict=VULNERABLE
-retained=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-syso-macos-poc.JjKbs3
+retained=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-syso-macos-poc.sb6Ywo
