@@ -30,6 +30,18 @@ jobs:
             file arm64-cfg/libLTO.dylib
             codesign --verify --verbose arm64-cfg/libLTO.dylib
           } 2>&1 | tee "$receipts/environment.txt"
+          linker=$(xcrun --find ld)
+          clang=$(xcrun --find clang)
+          system_lto="$(dirname "$clang")/../lib/libLTO.dylib"
+          {
+            printf 'linker=%s\n' "$linker"
+            otool -L "$linker"
+            printf '\nlinker_lto_imports:\n'
+            nm -u "$linker" | grep -E '(_lto_|_thinlto_)' | sort -u || true
+            printf '\nsystem_lto=%s\n' "$system_lto"
+            printf 'system_lto_exports:\n'
+            nm -gj "$system_lto" | grep -E '^_(lto_|thinlto_)' | sort -u || true
+          } 2>&1 | tee "$receipts/linker-lto-symbols.txt"
       - name: End-to-end verifier
         shell: bash
         run: |
