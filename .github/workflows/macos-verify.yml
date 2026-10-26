@@ -20,62 +20,32 @@ jobs:
           check-latest: true
       - name: Environment
         run: |
-          sw_vers
-          uname -m
-          go version
-          xcrun clang --version
-          file arm64-cfg/libLTO.dylib
-          codesign --verify --verbose arm64-cfg/libLTO.dylib
-      - name: Positive build
+          receipts="$RUNNER_TEMP/macos-verifier-receipts"
+          mkdir -p "$receipts"
+          {
+            sw_vers
+            uname -m
+            go version
+            xcrun clang --version
+            file arm64-cfg/libLTO.dylib
+            codesign --verify --verbose arm64-cfg/libLTO.dylib
+          } 2>&1 | tee "$receipts/environment.txt"
+      - name: End-to-end verifier
         shell: bash
         run: |
-          marker="$RUNNER_TEMP/go-syso-macos-marker"
-          rm -f "$marker" "$RUNNER_TEMP/go-syso-demo"
+          receipts="$RUNNER_TEMP/macos-verifier-receipts"
           set +e
-          GO_CGO_MACOS_CALC_MARKER="$marker" \
-          CGO_ENABLED=0 GOENV=off GOTOOLCHAIN=local \
-            go build -a -buildvcs=false -x -work -ldflags=-v \
-              -o "$RUNNER_TEMP/go-syso-demo" . \
-              > "$RUNNER_TEMP/positive.stdout" \
-              2> "$RUNNER_TEMP/positive.stderr"
-          status=$?
+          KEEP_TMP=1 ./verify-macos.sh 2>&1 | tee "$receipts/result.txt"
+          status=${PIPESTATUS[0]}
           set -e
-          {
-            printf 'positive_status=%s\n' "$status"
-            test -f "$marker" && echo 'positive_marker=yes' || echo 'positive_marker=no'
-            test -e "$RUNNER_TEMP/go-syso-demo" && echo 'positive_target=yes' || echo 'positive_target=no'
-          } | tee "$RUNNER_TEMP/result.txt"
-          grep 'host link:' "$RUNNER_TEMP/positive.stderr" || true
-          test -f "$marker"
-          test ! -e "$RUNNER_TEMP/go-syso-demo"
-      - name: Source-level control
-        shell: bash
-        run: |
-          marker="$RUNNER_TEMP/go-syso-macos-marker"
-          rm -f "$marker" "$RUNNER_TEMP/control-demo"
-          set +e
-          GO_CGO_MACOS_CALC_MARKER="$marker" \
-          CGO_ENABLED=1 GOENV=off GOTOOLCHAIN=local \
-            go build -a -buildvcs=false -x \
-              -o "$RUNNER_TEMP/control-demo" ./control \
-              > "$RUNNER_TEMP/control.stdout" \
-              2> "$RUNNER_TEMP/control.stderr"
-          status=$?
-          set -e
-          {
-            printf 'control_status=%s\n' "$status"
-            test -f "$marker" && echo 'control_marker=yes' || echo 'control_marker=no'
-          } | tee -a "$RUNNER_TEMP/result.txt"
-          grep 'invalid flag in #cgo LDFLAGS' "$RUNNER_TEMP/control.stderr"
-          test ! -f "$marker"
+          run=$(sed -n 's/^retained=//p' "$receipts/result.txt" | tail -1)
+          if [[ -n "$run" && -d "$run" ]]; then
+            cp "$run"/*.stderr "$run"/*.stdout "$run"/*.log "$receipts/" 2>/dev/null || true
+          fi
+          exit "$status"
       - name: Upload receipts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: macos-verifier-receipts
-          path: |
-            ${{ runner.temp }}/result.txt
-            ${{ runner.temp }}/positive.stdout
-            ${{ runner.temp }}/positive.stderr
-            ${{ runner.temp }}/control.stdout
-            ${{ runner.temp }}/control.stderr
+          path: ${{ runner.temp }}/macos-verifier-receipts
