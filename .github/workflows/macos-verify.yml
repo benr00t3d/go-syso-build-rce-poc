@@ -24,8 +24,8 @@ jobs:
           uname -m
           go version
           xcrun clang --version
-          file arm64-cfg/calculator_plugin.dylib
-          codesign --verify --verbose arm64-cfg/calculator_plugin.dylib
+          file arm64-cfg/libLTO.dylib
+          codesign --verify --verbose arm64-cfg/libLTO.dylib
       - name: Positive build
         shell: bash
         run: |

@@ -1,3 +1,3 @@
 package payload
 
-//go:cgo_ldflag "-Wl,-lto_library,arm64-cfg/calculator_plugin.dylib"
+//go:cgo_ldflag "-Wl,-lto_library,arm64-cfg/libLTO.dylib"
