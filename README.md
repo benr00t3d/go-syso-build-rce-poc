@@ -29,6 +29,7 @@ terminal summary is:
 positive_status=1
 positive_marker=yes
 positive_target=no
+calculator_launch_receipt=yes
 control_status=1
 control_rejected=yes
 control_marker=no

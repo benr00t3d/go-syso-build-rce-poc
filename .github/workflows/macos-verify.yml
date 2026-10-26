@@ -2,7 +2,7 @@ name: macOS Calculator demo verifier
 
 on:
   push:
-    branches: [macos-calculator-demo]
+    branches: [main, macos-calculator-demo]
   workflow_dispatch:
 
 permissions:

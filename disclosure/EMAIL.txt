@@ -25,6 +25,16 @@ executable is run, but the host marker is created. A source-level control
 using the same linker flag is correctly rejected by the same official
 toolchain and creates no marker.
 
+I also reproduced the bypass on a clean Apple-silicon macOS 15 runner with Go
+1.27.3 and Apple Clang 17. The Darwin carrier smuggles `-ld_classic` and
+`-lto_library`, which Go explicitly treats as unsafe in normal cgo source
+because the linker loads the named library. Its constructor opens Calculator
+and writes a marker before the link fails. The identical source-level flags
+are rejected and do not load the library. The repository root contains the
+clone-and-open visual demo and the retained macOS CI receipts. The VS Code
+folder task is only the visual harness; the vulnerable operation is the
+ordinary `go build` it invokes.
+
 I also repeated the build with the crafted module only as an indirect
 dependency. The root program imported a local wrapper and did not reference
 the crafted module. A fresh module cache fetched the indirect dependency and

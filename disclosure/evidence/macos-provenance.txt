@@ -1,0 +1,8 @@
+github_repository=benr00t3d/go-syso-build-rce-poc
+github_workflow=macOS Calculator demo verifier
+github_run=40380607899
+github_job=121775476306
+git_commit=71f6a86fe8173860a046ec634d3cdc7ddac22c1c
+run_started_utc=2026-10-26T18:45:44Z
+run_completed_utc=2026-10-26T18:46:04Z
+conclusion=success

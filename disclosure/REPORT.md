@@ -85,6 +85,69 @@ transitive_module_downloaded=yes
 transitive_target_executable=no
 ```
 
+## macOS visual reproduction
+
+I also reproduced the same validation bypass on a clean Apple-silicon runner
+and made the build-host effect visible with Calculator. The pinned environment
+was:
+
+```text
+macOS 15.7.9 (24G830), arm64
+go version go1.27.3 darwin/arm64
+Apple clang 17.0.0 (clang-1700.0.13.5)
+```
+
+The Darwin carrier serializes two options that normal cgo source cannot use:
+
+```text
+-Wl,-ld_classic
+-Wl,-lto_library,arm64-cfg/libLTO.dylib
+```
+
+The second `.syso` is LLVM bitcode, which both forces external linking and
+causes the classic Apple linker to load the supplied `libLTO.dylib`. Its
+constructor writes a marker and asks Launch Services to open Calculator. The
+library intentionally is not a real LTO implementation, so the link then
+fails and no target executable is produced or run.
+
+Observed result:
+
+```text
+positive_status=1
+positive_marker=yes
+positive_target=no
+calculator_launch_receipt=yes
+control_status=1
+control_rejected=yes
+control_marker=no
+verdict=VULNERABLE
+```
+
+The decisive linker transcript is:
+
+```text
+host link: "clang" ... "-Wl,-ld_classic" "-Wl,-lto_library,arm64-cfg/libLTO.dylib"
+ld: could not process llvm bitcode object file, because arm64-cfg/libLTO.dylib could not be loaded ...
+clang: error: linker command failed with exit code 1
+```
+
+The marker is written from the dylib constructor before that diagnostic. With
+the identical options in ordinary `#cgo LDFLAGS`, the same toolchain instead
+reports:
+
+```text
+invalid flag in #cgo LDFLAGS: -Wl,-ld_classic
+```
+
+The end-to-end GitHub Actions receipt is run `40380607899` at commit
+`71f6a86fe8173860a046ec634d3cdc7ddac22c1c`. The clone-and-open demo at the
+repository root runs the same positive case and control.
+
+The VS Code folder-open task is only a visual harness that invokes `go build`.
+It is not claimed as the vulnerability trigger. The macOS demo also keeps the
+dylib at a fixed path inside the checkout. The HTTP module-proxy reproduction
+above is the canonical proof of downloaded and indirect dependency reachability.
+
 The decisive build transcript contains these events in order:
 
 ```text
@@ -114,6 +177,10 @@ At revision `deab4989e6586057f154e164ab92940b79b8ed19`:
    when cgo is disabled.
 6. `lib.go:1978-1981` appends the unchecked values to the host-linker argv,
    and `lib.go:2038-2041` executes it.
+
+The Go source itself documents the macOS consequence. In
+`src/cmd/go/internal/work/security.go`, `-lto_library` is listed separately in
+`invalidLinkerFlags` because the linker loads and executes its next argument.
 
 The `runtime/cgo` diagnostic does not stop the link before the host compiler
 driver is invoked.
@@ -151,6 +218,8 @@ matches_disclosure_fixture=yes
   import the crafted package directly.
 - The target build fails and no target executable runs, but the host marker is
   present.
+- On macOS, the same serialized flags load the Calculator dylib, while the
+  source-level control is rejected and creates no marker.
 
 ## Security impact
 

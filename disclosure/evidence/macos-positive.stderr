@@ -1,0 +1,373 @@
+WORK=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207
+mkdir -p $WORK/b002/
+mkdir -p $WORK/b009/
+mkdir -p $WORK/b005/
+mkdir -p $WORK/b011/
+echo '# import config' > $WORK/b002/importcfg # internal
+mkdir -p $WORK/b008/
+echo '# import config' > $WORK/b009/importcfg # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b002/_pkg_.a -trimpath "$WORK/b002=>" -p example.test/go-syso-macos-demo/payload -lang=go1.27 -buildid QIMok3IJkASuquwcckWo/QIMok3IJkASuquwcckWo -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b002/importcfg -pack ./payload/payload.go
+echo '# import config' > $WORK/b005/importcfg # internal
+echo '# import config' > $WORK/b011/importcfg # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b009/_pkg_.a -trimpath "$WORK/b009=>" -p internal/byteorder -lang=go1.27 -std -complete -buildid 5OhCXMtqiV-21TdTdkf6/5OhCXMtqiV-21TdTdkf6 -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b009/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/byteorder/byteorder.go
+echo -n > $WORK/b008/go_asm.h # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b005/_pkg_.a -trimpath "$WORK/b005=>" -p internal/goarch -lang=go1.27 -std -complete -buildid MtpVa1InZfFcbLydZ4Vn/MtpVa1InZfFcbLydZ4Vn -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b005/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goarch/goarch.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goarch/goarch_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goarch/zgoarch_arm64.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/cpu -trimpath "$WORK/b008=>" -I $WORK/b008/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b008/symabis ./cpu.s ./cpu_arm64.s
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b011/_pkg_.a -trimpath "$WORK/b011=>" -p internal/coverage/rtcov -lang=go1.27 -std -complete -buildid 84IHgO_6ikN5KG3Vwcvt/84IHgO_6ikN5KG3Vwcvt -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b011/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/coverage/rtcov/rtcov.go
+echo '# import config' > $WORK/b008/importcfg # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b008/_pkg_.a -trimpath "$WORK/b008=>" -p internal/cpu -lang=go1.27 -std -buildid WBsc5al2RpXVrXmg-EpJ/WBsc5al2RpXVrXmg-EpJ -goversion go1.27.3 -symabis $WORK/b008/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b008/importcfg -pack -asmhdr $WORK/b008/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu/cpu.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu/cpu_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu/cpu_arm64_darwin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu/cpu_darwin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu/cpu_no_name.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu/datacache_unsupported.go
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc/payload
+go tool pack r $WORK/b002/_pkg_.a ./directive_darwin_arm64.syso ./unknown_darwin_arm64.syso # internal
+go tool buildid -w $WORK/b005/_pkg_.a # internal
+go tool buildid -w $WORK/b002/_pkg_.a # internal
+go tool buildid -w $WORK/b011/_pkg_.a # internal
+go tool buildid -w $WORK/b009/_pkg_.a # internal
+cp $WORK/b002/_pkg_.a /Users/runner/Library/Caches/go-build/3a/3ae5b12fb237fd3996106946642f742cd5ecb2e4a5a5cca53a257a33c3b00562-d # internal
+cp $WORK/b005/_pkg_.a /Users/runner/Library/Caches/go-build/71/717d83f38942e5aad5392426f814313b9b875b998ebf0b20474b306ad2e64a2d-d # internal
+mkdir -p $WORK/b012/
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/cpu -trimpath "$WORK/b008=>" -I $WORK/b008/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b008/cpu.o ./cpu.s
+echo '# import config' > $WORK/b012/importcfg # internal
+cp $WORK/b011/_pkg_.a /Users/runner/Library/Caches/go-build/f8/f852aa77cccfaf3c408c083b2d2e0e6a896c8623ee1fe1a7049e4191571d20ee-d # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b012/_pkg_.a -trimpath "$WORK/b012=>" -p internal/godebugs -lang=go1.27 -std -complete -buildid a0nNP_ZEI6XY03vfZBym/a0nNP_ZEI6XY03vfZBym -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b012/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/godebugs/table.go
+mkdir -p $WORK/b004/
+echo -n > $WORK/b004/go_asm.h # internal
+cp $WORK/b009/_pkg_.a /Users/runner/Library/Caches/go-build/1d/1d5a20443338a46a49c0d00667db7100fa71603400606486e64c5e0b4c652c33-d # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/abi -trimpath "$WORK/b004=>" -I $WORK/b004/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b004/symabis ./abi_test.s ./stub.s
+mkdir -p $WORK/b013/
+mkdir -p $WORK/b014/
+echo '# import config' > $WORK/b013/importcfg # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b013/_pkg_.a -trimpath "$WORK/b013=>" -p internal/goexperiment -lang=go1.27 -std -complete -buildid 2nEPlrpewO1AQtBZbmb-/2nEPlrpewO1AQtBZbmb- -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b013/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_arenas_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_boringcrypto_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_cgocheck2_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_dwarf5_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_fieldtrack_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_greenteagc_on.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_heapminimum512kib_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_jsonv2_on.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_loopvar_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_mapsplitgroup_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_newinliner_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_preemptibleloops_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_randomizedheapbase64_on.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_regabiargs_on.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_regabiwrappers_on.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_runtimefreegc_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_runtimesecret_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_simd_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_sizespecializedmalloc_on.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/exp_staticlockranking_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goexperiment/flags.go
+echo '# import config' > $WORK/b014/importcfg # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b014/_pkg_.a -trimpath "$WORK/b014=>" -p internal/goos -lang=go1.27 -std -complete -buildid AnoM48DKUfqz0x7BpOJl/AnoM48DKUfqz0x7BpOJl -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b014/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goos/goos.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goos/unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/goos/zgoos_darwin.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/cpu -trimpath "$WORK/b008=>" -I $WORK/b008/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b008/cpu_arm64.o ./cpu_arm64.s
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b004/importcfg << 'EOF' # internal
+# import config
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b004/_pkg_.a -trimpath "$WORK/b004=>" -p internal/abi -lang=go1.27 -std -buildid SgJl6eAg2cGf6OB6kdIo/SgJl6eAg2cGf6OB6kdIo -goversion go1.27.3 -symabis $WORK/b004/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b004/importcfg -pack -asmhdr $WORK/b004/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/abi.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/abi_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/bounds.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/compiletype.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/escape.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/funcpc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/iface.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/map.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/rangefuncconsts.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/runtime.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/stack.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/switch.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/symtab.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi/type.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/cpu
+go tool pack r $WORK/b008/_pkg_.a $WORK/b008/cpu.o $WORK/b008/cpu_arm64.o # internal
+go tool buildid -w $WORK/b008/_pkg_.a # internal
+cp $WORK/b008/_pkg_.a /Users/runner/Library/Caches/go-build/92/925a72c9bbb47cc061d337f62053f69044a5899b34a9c2f1dbbfbfc17f5af2f2-d # internal
+mkdir -p $WORK/b007/
+echo -n > $WORK/b007/go_asm.h # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/bytealg -trimpath "$WORK/b007=>" -I $WORK/b007/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b007/symabis ./compare_arm64.s ./count_arm64.s ./equal_arm64.s ./index_arm64.s ./indexbyte_arm64.s
+go tool buildid -w $WORK/b012/_pkg_.a # internal
+go tool buildid -w $WORK/b014/_pkg_.a # internal
+cp $WORK/b012/_pkg_.a /Users/runner/Library/Caches/go-build/2a/2a7035e1573695162f3daa8b3f3708a5b05d709965c739f7d79f0c9699c9eeea-d # internal
+go tool buildid -w $WORK/b013/_pkg_.a # internal
+cp $WORK/b014/_pkg_.a /Users/runner/Library/Caches/go-build/10/1077c9e42f8d38ffdf2c8749ded359abded6527f21e170752331f8eee19aad09-d # internal
+mkdir -p $WORK/b010/
+mkdir -p $WORK/b015/
+echo -n > $WORK/b010/go_asm.h # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/chacha8rand
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/chacha8rand -trimpath "$WORK/b010=>" -I $WORK/b010/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b010/symabis ./chacha8_arm64.s
+cp $WORK/b013/_pkg_.a /Users/runner/Library/Caches/go-build/b9/b91a382e48b1d8cab571316c76ceb3aa981330acefc7d9e89d991798e1295a7b-d # internal
+echo '# import config' > $WORK/b015/importcfg # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b015/_pkg_.a -trimpath "$WORK/b015=>" -p internal/profilerecord -lang=go1.27 -std -complete -buildid FlmDWstyYvR6A5hUjh8i/FlmDWstyYvR6A5hUjh8i -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b015/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/profilerecord/profilerecord.go
+mkdir -p $WORK/b016/
+echo -n > $WORK/b016/go_asm.h # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/atomic -trimpath "$WORK/b016=>" -I $WORK/b016/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b016/symabis ./atomic_arm64.s
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b007/importcfg << 'EOF' # internal
+# import config
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b007/_pkg_.a -trimpath "$WORK/b007=>" -p internal/bytealg -lang=go1.27 -std -buildid qlAwGOFXrf7BluptaQkZ/qlAwGOFXrf7BluptaQkZ -goversion go1.27.3 -symabis $WORK/b007/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b007/importcfg -pack -asmhdr $WORK/b007/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/bytealg.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/compare_native.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/count_native.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/equal_generic.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/equal_native.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/index_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/index_native.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/indexbyte_native.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg/lastindexbyte_generic.go
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b010/importcfg << 'EOF' # internal
+# import config
+packagefile internal/byteorder=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b009/_pkg_.a
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+EOF
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b010/_pkg_.a -trimpath "$WORK/b010=>" -p internal/chacha8rand -lang=go1.27 -std -buildid ycTrkKt_wTFxx0_Cs0sB/ycTrkKt_wTFxx0_Cs0sB -goversion go1.27.3 -symabis $WORK/b010/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b010/importcfg -pack -asmhdr $WORK/b010/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/chacha8rand/chacha8.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/chacha8rand/chacha8_generic.go
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b016/importcfg << 'EOF' # internal
+# import config
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+EOF
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b016/_pkg_.a -trimpath "$WORK/b016=>" -p internal/runtime/atomic -lang=go1.27 -std -buildid v0eO57SHNx-wIl5mueUt/v0eO57SHNx-wIl5mueUt -goversion go1.27.3 -symabis $WORK/b016/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b016/importcfg -pack -asmhdr $WORK/b016/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/atomic_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/doc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/linkname.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/stubs.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/types.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/types_64bit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/unaligned.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic/xchg8.go
+go tool buildid -w $WORK/b015/_pkg_.a # internal
+cp $WORK/b015/_pkg_.a /Users/runner/Library/Caches/go-build/ff/ffe96798cc66bb0733a25f975f8406d2fec14bd73d2fb4d88ac436eb36916d0e-d # internal
+mkdir -p $WORK/b018/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b018/importcfg << 'EOF' # internal
+# import config
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+EOF
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b018/_pkg_.a -trimpath "$WORK/b018=>" -p internal/runtime/gc -lang=go1.27 -std -complete -buildid n-oYfvCX_n4PDxYvPmjP/n-oYfvCX_n4PDxYvPmjP -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b018/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/malloc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/scan.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/sizeclasses.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/bytealg -trimpath "$WORK/b007=>" -I $WORK/b007/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b007/compare_arm64.o ./compare_arm64.s
+go tool buildid -w $WORK/b018/_pkg_.a # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/bytealg -trimpath "$WORK/b007=>" -I $WORK/b007/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b007/count_arm64.o ./count_arm64.s
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/chacha8rand
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/chacha8rand -trimpath "$WORK/b010=>" -I $WORK/b010/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b010/chacha8_arm64.o ./chacha8_arm64.s
+cp $WORK/b018/_pkg_.a /Users/runner/Library/Caches/go-build/fe/fee4245b905d6953f05ae72d6a537b1911064de4b7b6c2716725383099951c95-d # internal
+mkdir -p $WORK/b020/
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/atomic -trimpath "$WORK/b016=>" -I $WORK/b016/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b016/atomic_arm64.o ./atomic_arm64.s
+echo -n > $WORK/b020/go_asm.h # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/sys -trimpath "$WORK/b020=>" -I $WORK/b020/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b020/symabis ./dit_arm64.s ./empty.s
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/bytealg -trimpath "$WORK/b007=>" -I $WORK/b007/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b007/equal_arm64.o ./equal_arm64.s
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/chacha8rand
+go tool pack r $WORK/b010/_pkg_.a $WORK/b010/chacha8_arm64.o # internal
+go tool buildid -w $WORK/b010/_pkg_.a # internal
+cp $WORK/b010/_pkg_.a /Users/runner/Library/Caches/go-build/27/275ab4d2f2ef4bcae34e175a1dc8c53f10008eaf957b1af5818e519654e3b8c1-d # internal
+mkdir -p $WORK/b022/
+echo '# import config' > $WORK/b022/importcfg # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b022/_pkg_.a -trimpath "$WORK/b022=>" -p internal/asan -lang=go1.27 -std -complete -buildid C9kbOM8YSP9dlyOywI69/C9kbOM8YSP9dlyOywI69 -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b022/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/asan/doc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/asan/noasan.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/atomic
+go tool pack r $WORK/b016/_pkg_.a $WORK/b016/atomic_arm64.o # internal
+go tool buildid -w $WORK/b016/_pkg_.a # internal
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b020/importcfg << 'EOF' # internal
+# import config
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+packagefile internal/goos=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b014/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b020/_pkg_.a -trimpath "$WORK/b020=>" -p internal/runtime/sys -lang=go1.27 -std -buildid 6p5X-EMWHMyLgpfMtZ2W/6p5X-EMWHMyLgpfMtZ2W -goversion go1.27.3 -symabis $WORK/b020/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b020/importcfg -pack -asmhdr $WORK/b020/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/consts.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/consts_norace.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/dit_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/intrinsics.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/nih.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/sys.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys/zversion.go
+cp $WORK/b016/_pkg_.a /Users/runner/Library/Caches/go-build/32/3205d1b2024770023f113c11e13e33bc30cc1c474065d4937609f2af40c5453f-d # internal
+mkdir -p $WORK/b017/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b017/importcfg << 'EOF' # internal
+# import config
+packagefile internal/runtime/atomic=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b016/_pkg_.a
+EOF
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b017/_pkg_.a -trimpath "$WORK/b017=>" -p internal/runtime/exithook -lang=go1.27 -std -complete -buildid AnZ8YqF3GTF5LN-8fJBY/AnZ8YqF3GTF5LN-8fJBY -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b017/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/exithook/hooks.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/bytealg -trimpath "$WORK/b007=>" -I $WORK/b007/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b007/index_arm64.o ./index_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/bytealg -trimpath "$WORK/b007=>" -I $WORK/b007/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b007/indexbyte_arm64.o ./indexbyte_arm64.s
+go tool buildid -w $WORK/b022/_pkg_.a # internal
+cp $WORK/b022/_pkg_.a /Users/runner/Library/Caches/go-build/d1/d1a4a6cca84b47a0b90686e8851f7689579689c075e41c08bc73d7f4acb56a34-d # internal
+mkdir -p $WORK/b023/
+echo '# import config' > $WORK/b023/importcfg # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b023/_pkg_.a -trimpath "$WORK/b023=>" -p internal/msan -lang=go1.27 -std -complete -buildid woKSXoLI_bT72Ys3b_WY/woKSXoLI_bT72Ys3b_WY -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b023/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/msan/doc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/msan/nomsan.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/abi -trimpath "$WORK/b004=>" -I $WORK/b004/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b004/abi_test.o ./abi_test.s
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/sys -trimpath "$WORK/b020=>" -I $WORK/b020/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b020/dit_arm64.o ./dit_arm64.s
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/bytealg
+go tool pack r $WORK/b007/_pkg_.a $WORK/b007/compare_arm64.o $WORK/b007/count_arm64.o $WORK/b007/equal_arm64.o $WORK/b007/index_arm64.o $WORK/b007/indexbyte_arm64.o # internal
+go tool buildid -w $WORK/b007/_pkg_.a # internal
+cp $WORK/b007/_pkg_.a /Users/runner/Library/Caches/go-build/a8/a8e412ae9882d251996b781c24ee664b2970ed01b0fd6c2d197c78649a65c119-d # internal
+go tool buildid -w $WORK/b017/_pkg_.a # internal
+mkdir -p $WORK/b025/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b025/importcfg << 'EOF' # internal
+# import config
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b025/_pkg_.a -trimpath "$WORK/b025=>" -p internal/runtime/math -lang=go1.27 -std -complete -buildid 5T-rV2Z3WyItmVZYNuQr/5T-rV2Z3WyItmVZYNuQr -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b025/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/math/math.go
+cp $WORK/b017/_pkg_.a /Users/runner/Library/Caches/go-build/3c/3c3bee1f41f17fc664265adda94fb0eed907e15b62479c8c493e1bbe321d63ca-d # internal
+mkdir -p $WORK/b026/
+echo '# import config' > $WORK/b026/importcfg # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b026/_pkg_.a -trimpath "$WORK/b026=>" -p math/bits -lang=go1.27 -std -complete -buildid wkMHtg9RqzwTDZF0z5p0/wkMHtg9RqzwTDZF0z5p0 -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b026/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/math/bits/bits.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/math/bits/bits_errors.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/math/bits/bits_tables.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/abi -trimpath "$WORK/b004=>" -I $WORK/b004/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b004/stub.o ./stub.s
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/sys -trimpath "$WORK/b020=>" -I $WORK/b020/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b020/empty.o ./empty.s
+go tool buildid -w $WORK/b023/_pkg_.a # internal
+cp $WORK/b023/_pkg_.a /Users/runner/Library/Caches/go-build/59/592b115fb68d89d7d6120b2142756d11698fa96e7186f764c0064db572fc4475-d # internal
+mkdir -p $WORK/b027/
+echo '# import config' > $WORK/b027/importcfg # internal
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b027/_pkg_.a -trimpath "$WORK/b027=>" -p internal/runtime/pprof/label -lang=go1.27 -std -complete -buildid UI-vzkpTm0H9CB1V4U02/UI-vzkpTm0H9CB1V4U02 -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b027/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/pprof/label/labelset.go
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/abi
+go tool pack r $WORK/b004/_pkg_.a $WORK/b004/abi_test.o $WORK/b004/stub.o # internal
+go tool buildid -w $WORK/b004/_pkg_.a # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/sys
+go tool pack r $WORK/b020/_pkg_.a $WORK/b020/dit_arm64.o $WORK/b020/empty.o # internal
+go tool buildid -w $WORK/b020/_pkg_.a # internal
+cp $WORK/b020/_pkg_.a /Users/runner/Library/Caches/go-build/bb/bb55b927d2eb04ff34a0186d8b5e0ab653bf162ec7a69f889e86a7b10d770ff9-d # internal
+mkdir -p $WORK/b019/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b019/importcfg << 'EOF' # internal
+# import config
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+packagefile internal/runtime/gc=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b018/_pkg_.a
+packagefile internal/runtime/sys=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b020/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b019/_pkg_.a -trimpath "$WORK/b019=>" -p internal/runtime/gc/scan -lang=go1.27 -std -complete -buildid 7DlfiGMU7YPx-0vh0Wfk/7DlfiGMU7YPx-0vh0Wfk -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b019/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/scan/expand_reference.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/scan/filter.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/scan/scan_generic.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/scan/scan_go.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/gc/scan/scan_reference.go
+go tool buildid -w $WORK/b025/_pkg_.a # internal
+cp $WORK/b004/_pkg_.a /Users/runner/Library/Caches/go-build/14/1431418f6f19adab84bf0b886ab934cdcc1c7d8d20af02f566c0f44376a0c56e-d # internal
+mkdir -p $WORK/b024/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b024/importcfg << 'EOF' # internal
+# import config
+packagefile internal/abi=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b004/_pkg_.a
+EOF
+cp $WORK/b025/_pkg_.a /Users/runner/Library/Caches/go-build/90/901fa2ca7fb1c546d048c37aeb672800204e34325a0a7180e0745d3217f26850-d # internal
+mkdir -p $WORK/b029/
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b024/_pkg_.a -trimpath "$WORK/b024=>" -p internal/race -lang=go1.27 -std -complete -buildid 23cAXlxipNfVKLcdWgX5/23cAXlxipNfVKLcdWgX5 -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b024/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/race/doc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/race/norace.go
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b029/importcfg << 'EOF' # internal
+# import config
+packagefile internal/bytealg=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b007/_pkg_.a
+EOF
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b029/_pkg_.a -trimpath "$WORK/b029=>" -p internal/stringslite -lang=go1.27 -std -complete -buildid R5nDdFDaJTv8lVeUWXGE/R5nDdFDaJTv8lVeUWXGE -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b029/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/stringslite/strings.go
+go tool buildid -w $WORK/b027/_pkg_.a # internal
+cp $WORK/b027/_pkg_.a /Users/runner/Library/Caches/go-build/eb/eba4f1fb342649d980d6f847b0f046e64dcf4c9f5e152ef84938231eda4f1ff4-d # internal
+mkdir -p $WORK/b030/
+echo '# import config' > $WORK/b030/importcfg # internal
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b030/_pkg_.a -trimpath "$WORK/b030=>" -p internal/trace/tracev2 -lang=go1.27 -std -complete -buildid vTrKojjCqHOV9IWr911W/vTrKojjCqHOV9IWr911W -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b030/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/trace/tracev2/doc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/trace/tracev2/events.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/trace/tracev2/spec.go
+go tool buildid -w $WORK/b026/_pkg_.a # internal
+cp $WORK/b026/_pkg_.a /Users/runner/Library/Caches/go-build/79/79d2a88c5799a572b76a510fbdde0b7ccdd4e543a2ac814e0e2a6f2e726cefe7-d # internal
+mkdir -p $WORK/b028/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b028/importcfg << 'EOF' # internal
+# import config
+packagefile math/bits=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b026/_pkg_.a
+EOF
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b028/_pkg_.a -trimpath "$WORK/b028=>" -p internal/strconv -lang=go1.27 -std -complete -buildid hivyOa0Mef1ppHCevTlR/hivyOa0Mef1ppHCevTlR -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b028/importcfg -pack /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/atob.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/atoc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/atof.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/atoi.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/ctoa.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/decimal.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/deps.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/ftoa.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/itoa.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/pow10tab.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/strconv/uscale.go
+go tool buildid -w $WORK/b024/_pkg_.a # internal
+cp $WORK/b024/_pkg_.a /Users/runner/Library/Caches/go-build/ec/ece30eae2143957989fecfe346c1d3a239bbfc1b431c3bb8f8e08f01f19ae185-d # internal
+mkdir -p $WORK/b021/
+echo -n > $WORK/b021/go_asm.h # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/maps -trimpath "$WORK/b021=>" -I $WORK/b021/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b021/symabis ./memhash_arm64.s
+go tool buildid -w $WORK/b019/_pkg_.a # internal
+cp $WORK/b019/_pkg_.a /Users/runner/Library/Caches/go-build/a6/a6bc33d56c0bdc144363ec1ddb609749aa229c67ad7d228b8b7e16b7cf9b82f3-d # internal
+go tool buildid -w $WORK/b029/_pkg_.a # internal
+cp $WORK/b029/_pkg_.a /Users/runner/Library/Caches/go-build/3c/3ccf41da07a57a48a4581395381518f184c33626ab59d8d5e5eafb3020b3b73a-d # internal
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b021/importcfg << 'EOF' # internal
+# import config
+packagefile internal/abi=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b004/_pkg_.a
+packagefile internal/asan=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b022/_pkg_.a
+packagefile internal/byteorder=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b009/_pkg_.a
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+packagefile internal/goexperiment=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b013/_pkg_.a
+packagefile internal/msan=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b023/_pkg_.a
+packagefile internal/race=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b024/_pkg_.a
+packagefile internal/runtime/math=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b025/_pkg_.a
+packagefile internal/runtime/sys=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b020/_pkg_.a
+packagefile math/bits=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b026/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b021/_pkg_.a -trimpath "$WORK/b021=>" -p internal/runtime/maps -lang=go1.27 -std -buildid Y5yqelMWWte4p_nicigM/Y5yqelMWWte4p_nicigM -goversion go1.27.3 -symabis $WORK/b021/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b021/importcfg -pack -asmhdr $WORK/b021/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/group.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/map.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/memhash_aes.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/memhash_aes_asm.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/memhash_align_nocheck.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/runtime.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/runtime_alg.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/runtime_fast32.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/runtime_fast64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/runtime_faststr.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/runtime_hash64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/table.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps/table_debug.go
+go tool buildid -w $WORK/b030/_pkg_.a # internal
+cp $WORK/b030/_pkg_.a /Users/runner/Library/Caches/go-build/01/01af4ce0508af1c01909a054e3a7ce4b198d8721bc26304097a293f71e6aa389-d # internal
+go tool buildid -w $WORK/b028/_pkg_.a # internal
+cp $WORK/b028/_pkg_.a /Users/runner/Library/Caches/go-build/45/454afcab6624961d415d7124b6609ff2dca704748380a8b989ab2604e1d9fb8f-d # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/internal/runtime/maps
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p internal/runtime/maps -trimpath "$WORK/b021=>" -I $WORK/b021/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b021/memhash_arm64.o ./memhash_arm64.s
+go tool pack r $WORK/b021/_pkg_.a $WORK/b021/memhash_arm64.o # internal
+go tool buildid -w $WORK/b021/_pkg_.a # internal
+cp $WORK/b021/_pkg_.a /Users/runner/Library/Caches/go-build/3e/3e21bf0145227b176b7a4e3ac34d1d0a35e442f31da5003914292a76c9a434f9-d # internal
+mkdir -p $WORK/b003/
+echo -n > $WORK/b003/go_asm.h # internal
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -gensymabis -o $WORK/b003/symabis ./asm.s ./asm_arm64.s ./atomic_arm64.s ./ints.s ./memclr_arm64.s ./memmove_arm64.s ./preempt_arm64.s ./rt0_darwin_arm64.s ./secret_arm64.s ./sys_darwin_arm64.s ./tls_arm64.s
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b003/importcfg << 'EOF' # internal
+# import config
+packagefile internal/abi=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b004/_pkg_.a
+packagefile internal/bytealg=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b007/_pkg_.a
+packagefile internal/byteorder=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b009/_pkg_.a
+packagefile internal/chacha8rand=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b010/_pkg_.a
+packagefile internal/coverage/rtcov=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b011/_pkg_.a
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+packagefile internal/godebugs=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b012/_pkg_.a
+packagefile internal/goexperiment=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b013/_pkg_.a
+packagefile internal/goos=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b014/_pkg_.a
+packagefile internal/profilerecord=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b015/_pkg_.a
+packagefile internal/runtime/atomic=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b016/_pkg_.a
+packagefile internal/runtime/exithook=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b017/_pkg_.a
+packagefile internal/runtime/gc=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b018/_pkg_.a
+packagefile internal/runtime/gc/scan=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b019/_pkg_.a
+packagefile internal/runtime/maps=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b021/_pkg_.a
+packagefile internal/runtime/math=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b025/_pkg_.a
+packagefile internal/runtime/pprof/label=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b027/_pkg_.a
+packagefile internal/runtime/sys=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b020/_pkg_.a
+packagefile internal/strconv=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b028/_pkg_.a
+packagefile internal/stringslite=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b029/_pkg_.a
+packagefile internal/trace/tracev2=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b030/_pkg_.a
+packagefile math/bits=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b026/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b003/_pkg_.a -trimpath "$WORK/b003=>" -p runtime -lang=go1.27 -std -buildid aLaENby6Dq4e330YXcM-/aLaENby6Dq4e330YXcM- -goversion go1.27.3 -symabis $WORK/b003/symabis -c=5 -shared -nolocalimports -importcfg $WORK/b003/importcfg -pack -asmhdr $WORK/b003/go_asm.h /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/alg.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/arena.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/asan0.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/atomic_pointer.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/badlinkname.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cgo.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cgocall.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cgocallback.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cgocheck.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cgroup_stubs.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/chan.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/checkptr.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/compiler.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/complex.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/coro.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/covercounter.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/covermeta.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cpuflags.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cpuflags_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/cpuprof.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/create_file_unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/debug.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/debugcall.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/debuglog.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/debuglog_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/defs_darwin_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/dit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/env_posix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/error.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/extern.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/fastlog2.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/fastlog2table.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/fds_unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/fipsbypass.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/float.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/heapdump.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/hexdump.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/histogram.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/iface.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/lfstack.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/libinit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/linkname.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/linkname_shim.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/linkname_unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/list.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/list_manual.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/lock_sema.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/lock_spinbit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/lockrank.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/lockrank_off.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/malloc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/malloc_generated.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/malloc_stubs.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/malloc_tables_generated.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/map.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/map_fast32.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/map_fast64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/map_faststr.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mbarrier.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mbitmap.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mcache.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mcentral.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mcheckmark.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mcleanup.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mem.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mem_darwin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mem_nonsbrk.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/metrics.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mfinal.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mfixalloc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgclimit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcmark.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcmark_greenteagc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcpacer.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcscavenge.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcstack.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcsweep.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mgcwork.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mheap.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/minmax.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mpagealloc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mpagealloc_64bit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mpagecache.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mpallocbits.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mprof.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mranges.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/msan0.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/msize.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mspanset.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mstats.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/mwbbuf.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/nbpipe_pipe.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/netpoll.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/netpoll_kqueue.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/netpoll_kqueue_event.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/nonwindows_stub.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/note_other.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/os_darwin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/os_darwin_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/os_nonopenbsd.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/os_unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/os_unix_nonlinux.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/os_workdir_stub.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/panic.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/pinner.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/plugin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/preempt.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/preempt_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/preempt_nonwindows.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/preempt_xreg.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/print.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/proc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/profbuf.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/proflabel.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/race0.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/rand.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/rdebug.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/retry.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/runtime.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/runtime1.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/runtime2.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/runtime_boring.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/runtime_noclearenv.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/rwmutex.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/secret_asm.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/secret_nosecret.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/security_issetugid.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/security_unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/select.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sema.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/set_vma_name_stub.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/signal_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/signal_darwin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/signal_darwin_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/signal_unix.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sigqueue.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/slice.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/softfloat64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/stack.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/stkframe.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/string.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/stubs.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/stubs_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/stubs_nonlinux.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/stubs_nonwasm.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/symtab.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/symtabinl.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/synctest.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sys_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sys_darwin.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sys_darwin_arm64.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sys_libc.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/sys_nonppc64x.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tagptr.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tagptr_64bit.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/test_stubs.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/time.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/time_nofake.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/timestub.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tls_stub.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/trace.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/traceallocfree.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/traceback.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracebuf.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracecpu.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/traceevent.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracemap.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/traceregion.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/traceruntime.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracestack.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracestatus.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracestring.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracetime.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tracetype.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/type.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/unsafe.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/utf8.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/valgrind0.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/vdso_in_none.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/vgetrandom_unsupported.go /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/write_err.go
+cp /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime/tls_arm64.h $WORK/b003/tls_GOARCH.h
+cd /Users/runner/hostedtoolcache/go/1.27.3/arm64/src/runtime
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/asm.o ./asm.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/asm_arm64.o ./asm_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/atomic_arm64.o ./atomic_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/ints.o ./ints.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/memclr_arm64.o ./memclr_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/memmove_arm64.o ./memmove_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/preempt_arm64.o ./preempt_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/rt0_darwin_arm64.o ./rt0_darwin_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/secret_arm64.o ./secret_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/sys_darwin_arm64.o ./sys_darwin_arm64.s
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/asm -p runtime -trimpath "$WORK/b003=>" -I $WORK/b003/ -I /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/include -D GOOS_darwin -D GOARCH_arm64 -shared -std -o $WORK/b003/tls_arm64.o ./tls_arm64.s
+go tool pack r $WORK/b003/_pkg_.a $WORK/b003/asm.o $WORK/b003/asm_arm64.o $WORK/b003/atomic_arm64.o $WORK/b003/ints.o $WORK/b003/memclr_arm64.o $WORK/b003/memmove_arm64.o $WORK/b003/preempt_arm64.o $WORK/b003/rt0_darwin_arm64.o $WORK/b003/secret_arm64.o $WORK/b003/sys_darwin_arm64.o $WORK/b003/tls_arm64.o # internal
+go tool buildid -w $WORK/b003/_pkg_.a # internal
+cp $WORK/b003/_pkg_.a /Users/runner/Library/Caches/go-build/62/6237d415daddbc3da8b12ed6b849c978d41a303a9d9287a075146c83a13b3a4e-d # internal
+mkdir -p $WORK/b001/
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b001/importcfg << 'EOF' # internal
+# import config
+packagefile example.test/go-syso-macos-demo/payload=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b002/_pkg_.a
+packagefile runtime=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b003/_pkg_.a
+EOF
+cd /Users/runner/work/go-syso-build-rce-poc/go-syso-build-rce-poc
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/compile -o $WORK/b001/_pkg_.a -trimpath "$WORK/b001=>" -p main -lang=go1.27 -complete -buildid 76R_hSa9xhODAkiefDOn/76R_hSa9xhODAkiefDOn -goversion go1.27.3 -c=5 -shared -nolocalimports -importcfg $WORK/b001/importcfg -pack ./main.go
+go tool buildid -w $WORK/b001/_pkg_.a # internal
+cp $WORK/b001/_pkg_.a /Users/runner/Library/Caches/go-build/f2/f236fc1b9637dab84f3708e46fa39d5ca0622c3db51d2ceb6ec1319a111dac10-d # internal
+cat >/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b001/importcfg.link << 'EOF' # internal
+packagefile example.test/go-syso-macos-demo=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b001/_pkg_.a
+packagefile example.test/go-syso-macos-demo/payload=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b002/_pkg_.a
+packagefile runtime=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b003/_pkg_.a
+packagefile internal/abi=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b004/_pkg_.a
+packagefile internal/bytealg=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b007/_pkg_.a
+packagefile internal/byteorder=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b009/_pkg_.a
+packagefile internal/chacha8rand=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b010/_pkg_.a
+packagefile internal/coverage/rtcov=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b011/_pkg_.a
+packagefile internal/cpu=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b008/_pkg_.a
+packagefile internal/goarch=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b005/_pkg_.a
+packagefile internal/godebugs=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b012/_pkg_.a
+packagefile internal/goexperiment=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b013/_pkg_.a
+packagefile internal/goos=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b014/_pkg_.a
+packagefile internal/profilerecord=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b015/_pkg_.a
+packagefile internal/runtime/atomic=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b016/_pkg_.a
+packagefile internal/runtime/exithook=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b017/_pkg_.a
+packagefile internal/runtime/gc=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b018/_pkg_.a
+packagefile internal/runtime/gc/scan=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b019/_pkg_.a
+packagefile internal/runtime/maps=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b021/_pkg_.a
+packagefile internal/runtime/math=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b025/_pkg_.a
+packagefile internal/runtime/pprof/label=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b027/_pkg_.a
+packagefile internal/runtime/sys=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b020/_pkg_.a
+packagefile internal/strconv=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b028/_pkg_.a
+packagefile internal/stringslite=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b029/_pkg_.a
+packagefile internal/trace/tracev2=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b030/_pkg_.a
+packagefile math/bits=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b026/_pkg_.a
+packagefile internal/asan=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b022/_pkg_.a
+packagefile internal/msan=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b023/_pkg_.a
+packagefile internal/race=/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b024/_pkg_.a
+modinfo "0w\xaf\f\x92t\b\x02A\xe1\xc1\a\xe6\xd6\x18\xe6path\texample.test/go-syso-macos-demo\nmod\texample.test/go-syso-macos-demo\t(devel)\t\nbuild\t-buildmode=exe\nbuild\t-compiler=gc\nbuild\t-ldflags=-v\nbuild\tCGO_ENABLED=0\nbuild\tGOARCH=arm64\nbuild\tGOOS=darwin\nbuild\tGOARM64=v8.0\n\xf92C1\x86\x18 r\x00\x82B\x10A\x16\xd8\xf2"
+EOF
+mkdir -p $WORK/b001/exe/
+cd .
+GOROOT='/Users/runner/hostedtoolcache/go/1.27.3/arm64' /Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/link -o $WORK/b001/exe/a.out -importcfg $WORK/b001/importcfg.link -buildmode=pie -buildid=K3XZwl0LPndqjXFeNKj3/76R_hSa9xhODAkiefDOn/enlQyQDQSB-ZwnKfV0aL/K3XZwl0LPndqjXFeNKj3 -v -extld=/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang $WORK/b001/_pkg_.a
+# example.test/go-syso-macos-demo
+build mode: pie, symbol table: on, DWARF: on
+HEADER = -H1 -T0x100001000 -R0x4000
+loadinternal: cannot find runtime/cgo
+host obj copy: $WORK/b002/_pkg_.a(unknown_darwin_a) from pkg example.test/go-syso-macos-demo/payload -> /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-link-837070245/000000.o
+host link: "/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" "-arch" "arm64" "-Wl,-headerpad,1144" "-o" "/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-build4007676207/b001/exe/a.out" "-Qunused-arguments" "/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-link-837070245/go.o" "/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-link-837070245/000000.o" "-Wl,-ld_classic" "-Wl,-lto_library,arm64-cfg/libLTO.dylib"
+/Users/runner/hostedtoolcache/go/1.27.3/arm64/pkg/tool/darwin_arm64/link: running /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang failed: exit status 1
+/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch arm64 -Wl,-headerpad,1144 -o $WORK/b001/exe/a.out -Qunused-arguments /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-link-837070245/go.o /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-link-837070245/000000.o -Wl,-ld_classic -Wl,-lto_library,arm64-cfg/libLTO.dylib
+ld: warning: -ld_classic is deprecated and will be removed in a future release
+ld: could not process llvm bitcode object file, because arm64-cfg/libLTO.dylib could not be loaded file '/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/go-link-837070245/000000.o'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
