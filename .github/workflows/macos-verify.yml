@@ -18,6 +18,16 @@ jobs:
         with:
           go-version: 1.27.3
           check-latest: true
+      - name: Build Xcode 27 demo library
+        run: |
+          sdk=$(xcrun --show-sdk-path)
+          xcrun clang -isysroot "$sdk" -dynamiclib -fPIC -arch arm64 \
+            -Wl,-install_name,@rpath/libLTO.dylib \
+            -Wl,-compatibility_version,1.0.0 \
+            -Wl,-current_version,5100.3.34 \
+            plugin/calculator_demo.c plugin/lto_api_stubs.c \
+            -o arm64-cfg/libLTO.dylib
+          codesign --force --sign - arm64-cfg/libLTO.dylib
       - name: Environment
         run: |
           receipts="$RUNNER_TEMP/macos-verifier-receipts"
@@ -29,6 +39,7 @@ jobs:
             xcrun clang --version
             file arm64-cfg/libLTO.dylib
             codesign --verify --verbose arm64-cfg/libLTO.dylib
+            shasum -a 256 arm64-cfg/libLTO.dylib
           } 2>&1 | tee "$receipts/environment.txt"
           linker=$(xcrun --find ld)
           clang=$(xcrun --find clang)
