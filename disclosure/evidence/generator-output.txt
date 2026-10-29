@@ -1,3 +1,0 @@
-magic_offset=257
-fingerprint_offset=265
-original_fingerprint=4413a198c18915f8

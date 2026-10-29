@@ -1,3 +1,3 @@
 package payload
 
-const Demo = "GO-F0003"
+const Demo = "syso-linker-flag-validation-bypass"

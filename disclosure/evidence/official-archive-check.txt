@@ -1,1 +1,0 @@
-/workspace/jobs/go-syso-official-http-20261026/go1.27.3.linux-amd64.tar.gz: OK

@@ -1,5 +1,11 @@
 # cmd/go: downloaded `.syso` bypasses cgo linker flag validation
 
+Date: 2026-10-26
+
+Reporter: Robert Prast
+
+Repository: https://github.com/benr00t3d/go-syso-build-rce-poc
+
 ## Summary
 
 A downloaded Go module can put a precompiled Go object in a `.syso` file. The
@@ -152,13 +158,12 @@ invalid flag in #cgo LDFLAGS: -Wl,-ld_classic
 
 The two-runner GitHub Actions receipt is run `40389859587` at commit
 `17f0a5574a8b25ae465db3390992fb028071ed76`. Both jobs used the checked-in
-dylib and produced `calculator_launch_receipt=yes`. The clone-and-open demo at
-the repository root runs the same positive case and control.
+dylib and produced `calculator_launch_receipt=yes`. The macOS verifier at the
+repository root runs the same positive case and control.
 
-The VS Code folder-open task is only a visual harness that invokes `go build`.
-It is not claimed as the vulnerability trigger. The macOS demo also keeps the
-dylib at a fixed path inside the checkout. The HTTP module-proxy reproduction
-above is the canonical proof of downloaded and indirect dependency reachability.
+The macOS demo keeps the dylib at a fixed path inside the checkout. The HTTP
+module-proxy reproduction above is the canonical proof of downloaded and
+indirect dependency reachability.
 
 The decisive build transcript contains these events in order:
 
@@ -291,3 +296,9 @@ and ensure every untrusted value is validated before host-linker execution.
 ## Attribution
 
 Robert Prast
+
+## Historical receipts
+
+The full raw build transcripts used while preparing this report are retained
+in repository commit `dd27c5ff7fcc51ef32d83c6abe065be62b8280a6`. They were
+removed from the current tree so the reproduction remains small and direct.

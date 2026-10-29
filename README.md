@@ -1,93 +1,85 @@
-# Go `.syso` build-host execution
+# cmd/go `.syso` linker-flag validation bypass
 
-This repository reproduces GO-F0003, a `cmd/go` validation bypass. A Go
-compiler object named as a `.syso` file can carry serialized `cgo_ldflag`
-records past the source-level linker flag checks. During an ordinary
-`go build`, `cmd/link` forwards those records to the host compiler driver.
+A precompiled Go object named as a `.syso` file can carry serialized
+`cgo_ldflag` records past `cmd/go`'s source-level checks. During an ordinary
+`go build`, `cmd/link` forwards those values to the host compiler driver.
 
-The Apple-silicon demo makes the build-host effect visible by opening
-Calculator. It is continuously verified with Go 1.27.3 on both macOS 15 with
-Apple Clang 17 and macOS 27 with Apple Clang 21.
+This repository contains two focused reproductions:
 
-## macOS Calculator demo
+1. a macOS visual demonstration that opens Calculator during `go build`; and
+2. a Linux local-module-proxy test proving that a downloaded dependency can
+   reach the same build-host execution path.
 
-Requirements: an Apple-silicon Mac, Apple Command Line Tools, Go on `PATH`,
-and access to download the pinned Go 1.27.3 toolchain if it is not installed.
+## macOS visual demonstration
+
+Requirements: an Apple-silicon Mac, Apple Command Line Tools, and Go on
+`PATH`. The module pins Go 1.27.3.
 
 ```sh
 DEMO_ROOT="$(mktemp -d /tmp/go-syso-calculator.XXXXXX)"
 gh repo clone benr00t3d/go-syso-build-rce-poc "$DEMO_ROOT/repo"
-code --new-window "$DEMO_ROOT/repo"
+cd "$DEMO_ROOT/repo"
+go build
 ```
 
-VS Code first opens an unfamiliar folder in Restricted Mode. Once the folder
-is trusted, its folder-open demo task runs `./verify-macos.sh`. Calculator
-opens while the Go linker is processing the crafted package. The expected
-terminal summary is:
+Calculator opens while the Go linker processes the crafted package. The build
+then fails intentionally because the demonstration library is not a real LTO
+implementation. No target executable is produced or run.
 
-```text
-positive_status=1
-positive_marker=yes
-positive_target=no
-calculator_launch_receipt=yes
-control_status=1
-control_rejected=yes
-control_marker=no
-verdict=VULNERABLE
-```
-
-The same verifier can be run without VS Code:
+For the positive case and its matched source-level control, run:
 
 ```sh
 ./verify-macos.sh
 ```
 
-Set `KEEP_TMP=1` to retain the complete build transcripts.
-
-The VS Code folder-open task is only a recorder-friendly demo harness. The
-security issue does not depend on VS Code, the Go extension, or a task file.
-The actual trigger is `go build`. The separate module-proxy reproduction under
-`poc/` proves the downloaded and indirect-dependency cases with an empty module
-cache.
-
-## What the macOS control proves
-
-The crafted `.syso` serializes these host-linker options:
+The expected summary is:
 
 ```text
--Wl,-ld_classic
--Wl,-lto_library,arm64-cfg/libLTO.dylib
+positive_marker=yes
+positive_target=no
+calculator_launch_receipt=yes
+control_rejected=yes
+control_marker=no
+verdict=VULNERABLE
 ```
 
-On macOS 15, `-ld_classic` selects the classic linker, which loads the supplied
-LTO library. Xcode 27 removed that linker and ignores the selector, but its new
-linker still loads the library named by `-lto_library`. The demo library exports
-inert placeholders for the LTO symbols imported by the Xcode 27 linker so dyld
-can finish binding and run its constructor. The link then fails safely because
-the library is not an LTO implementation; the target program is never produced
-or run.
+The demonstration library can be rebuilt from the checked-in source with
+`plugin/build-macos.sh`.
 
-When the identical options appear in normal `#cgo LDFLAGS` source, Go rejects
-them before the linker starts and Calculator does not open. The checked-in
-dylib can be reproduced from source with `plugin/build-macos.sh`; that build is
-not a prerequisite for running the demo.
+## Downloaded-module reproduction
 
-The visual demo keeps its dylib inside this checkout at a fixed relative path.
-It demonstrates the macOS build-host primitive. The `poc/` reproduction is the
-canonical proof that a module fetched over the module protocol can trigger the
-same validation bypass without controlling the consumer's build command.
+The canonical reachability test is under [`poc/`](poc/README.md). It uses a
+local file module proxy and an empty module cache. The consumer downloads the
+crafted dependency during a normal build. Its only effect is a temporary
+marker that the verifier removes on exit.
 
-## Report package
+On Linux amd64 with an affected Go toolchain and GCC:
 
-- [`disclosure/REPORT.md`](disclosure/REPORT.md): report, root cause, impact,
-  controls, and suggested fix
-- [`disclosure/EMAIL.txt`](disclosure/EMAIL.txt): concise report email
-- [`disclosure/FIX.patch`](disclosure/FIX.patch): tested candidate remediation
-- [`disclosure/evidence/`](disclosure/evidence): pinned build receipts
-- [`poc/README.md`](poc/README.md): minimal downloaded-module reproduction
-- [`poc/generator/README.md`](poc/generator/README.md): deterministic carrier
-  generation
+```sh
+cd poc
+./verify.sh /path/to/affected/go
+```
 
-This repository is public so reviewers can reproduce the result from an
-unauthenticated clone. Send vulnerability discussion and remediation details
-to the Go Security team rather than opening a public Go issue.
+Expected result:
+
+```text
+build_status=1
+host_marker=yes
+module_downloaded=yes
+```
+
+## Files to review
+
+- [`disclosure/REPORT.md`](disclosure/REPORT.md): technical report and root cause
+- [`disclosure/EMAIL.md`](disclosure/EMAIL.md): report email
+- [`disclosure/FIX.patch`](disclosure/FIX.patch): candidate remediation
+- [`verify-macos.sh`](verify-macos.sh): macOS positive and negative control
+- [`poc/verify.sh`](poc/verify.sh): downloaded-module reproduction
+- [`poc/generator/`](poc/generator): deterministic `.syso` construction
+
+`SHA256SUMS` covers the retained reproduction files. Full historical build
+transcripts remain available in repository commit
+`dd27c5ff7fcc51ef32d83c6abe065be62b8280a6`.
+
+Send vulnerability discussion to `security@golang.org` rather than opening a
+public Go issue.

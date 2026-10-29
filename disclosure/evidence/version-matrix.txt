@@ -1,3 +1,0 @@
-go126 build_status=1 host_marker=yes
-go1273 build_status=1 host_marker=yes
-master build_status=1 host_marker=yes
