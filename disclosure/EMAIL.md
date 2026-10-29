@@ -43,7 +43,8 @@ Materials:
 
 - Repository: https://github.com/benr00t3d/go-syso-build-rce-poc
 - Full report: https://github.com/benr00t3d/go-syso-build-rce-poc/blob/main/disclosure/REPORT.md
-- macOS CI-verified revision: `17f0a5574a8b25ae465db3390992fb028071ed76`
+- Clean reproduction revision: `613ffce47bc3616e54844463bbf3f1edd25d84fc`
+- macOS CI receipt revision: `17f0a5574a8b25ae465db3390992fb028071ed76`
 - Candidate fix: https://github.com/benr00t3d/go-syso-build-rce-poc/blob/main/disclosure/FIX.patch
 - Video: [private video URL]
 
